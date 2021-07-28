@@ -34,7 +34,7 @@ function calcular() {
         // Igual pero con el segundo parámetro
     } else if (num2 === null) {
 
-        // Mensaje por pantalla
+        // Mensaje por pantallagit a
         alert("La raiz cuadrada de " + num1 + " es " + Math.sqrt(num1).toFixed(3));
 
         // Si los dos parámetros tienen números
