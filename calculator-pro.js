@@ -11,9 +11,10 @@ alert("Gracias por usar nuestra aplicación");
 
 // Función que pide un numero y avisa y reitera hasta que no se introduzca
 function preguntarNum() {
+    let num;
     do {
         // Pide el numero
-        var num = prompt("Introduce un número");
+        num = prompt("Introduce un número");
 
         if (isNaN(num)) {
             alert("No es un número");
@@ -28,35 +29,40 @@ function preguntarNum() {
 function calcular() {
 
     let results = [];
+    let numeros = [];
 
-    let num1 = preguntarNum();
-    let num2 = preguntarNum();
+    do {
+
+        let num = preguntarNum();
+
+        numeros.push(num);
+
+    } while (confirm("Introducir más números?"))
+
+    // filtra el array para eliminar los hecos que contengan null
+    let numerosFiltrados = numeros.filter(el => el != null);
 
     // Si no se introduce ningún número avisa de ello
-    if (num1 === null && num2 === null) {
+    if (numerosFiltrados.length === 1 && numerosFiltrados[0] === null) {
 
         alert("No se ha introducido ningún número");
 
         // Si el primer parámetro está vacío te calcula la raiz cuadrada del segundo
-    } else if (num1 === null) {
+    } else if (numerosFiltrados.length === 1) {
 
         // Mensaje por pantall
-        alert("La raíz cuadrada de " + num2 + " es " + calcSqrt(num2));
+        alert("La raíz cuadrada de " + numerosFiltrados[0] + " es " + calcSqrt(numerosFiltrados[0]));
 
-        // Igual pero con el segundo parámetro
-    } else if (num2 === null) {
-
-        // Mensaje por pantallagit a
-        alert("La raiz cuadrada de " + num1 + " es " + calcSqrt(num1));
-
-        // Si los dos parámetros tienen números
+        // Si tiene más parámetros
     } else {
 
         // Calcula los resultados
-        let sum = calcSum(num1, num2).toFixed(3);
-        let rest = calcRest(num1, num2).toFixed(3);
-        let mult = calcMult(num1, num2).toFixed(3);
-        let div = calcDiv(num1, num2).toFixed(3);
+        let sum = calcSum(numerosFiltrados).toFixed(3);
+        let rest = calcRest(numerosFiltrados).toFixed(3);
+        let mult = calcMult(numerosFiltrados).toFixed(3);
+        let div = calcDiv(numerosFiltrados).toFixed(3);
+
+        
 
         // Los introduce en el array
         results.push(sum, rest, mult, div);
@@ -74,23 +80,44 @@ function calcSqrt(num) {
 }
 
 // Devuelve la suma de los números
-function calcSum(num1, num2) {
-    return Number(num1) + Number(num2);
+function calcSum(numeros) {
+
+    let sum = 0;
+
+    numeros.forEach(element => sum = sum + Number(element))
+
+    return sum;
+
 }
 
 // Devuelve la resta de los números
-function calcRest(num1, num2) {
-    return num1 - num2;
+function calcRest(numeros) {
+
+    let rest = 0;
+
+    numeros.forEach(element => rest = rest - element)
+
+    return rest;
 }
 
 // Devuelve la multiplicación de los números
-function calcMult(num1, num2) {
-    return num1 * num2;
+function calcMult(numeros) {
+
+    let mult = 1;
+
+    numeros.forEach(element => mult = mult * Number(element))
+
+    return mult;
 }
 
 // Devuelve la división de los números
-function calcDiv(num1, num2) {
-    return num1 / num2;
+function calcDiv(numeros) {
+
+    let div = 1;
+
+    numeros.forEach(element => div = Number(element) / div)
+
+    return div;
 }
 
 // Muestra los resultados por pantalla
